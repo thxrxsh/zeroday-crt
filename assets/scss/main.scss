@@ -1,0 +1,458 @@
+/* ==========================================================================
+   ZER0-DAY CRT THEME (main.scss)
+   Based on CTFd core theme main.scss + CRT overrides
+   ========================================================================== */
+
+/* --- Theme tokens --- */
+$zeroday-green: #1bff54;
+$zeroday-bg: #111111;
+$zeroday-panel: #0b0f0c;
+$zeroday-white: rgba(233, 255, 238, 0.95);
+$zeroday-muted: rgba(233, 255, 238, 0.65);
+$zeroday-border: rgba(27, 255, 84, 0.35);
+$zeroday-shadow: rgba(27, 255, 84, 0.5);
+$zeroday-danger-text: #ff6b6b;
+$zeroday-danger-bg: rgba(255, 27, 27, 0.1);
+
+/* --- Bootstrap overrides (must be BEFORE other Bootstrap-dependent styles) --- */
+@use "bootstrap/scss/bootstrap" as * with (
+  $primary: $zeroday-green,
+  $info: #5c728f,
+  $dark: $zeroday-bg,
+
+  $body-bg: $zeroday-bg,
+  $body-color: $zeroday-white,
+
+  $link-color: $zeroday-green,
+  $link-hover-color: lighten($zeroday-green, 6%),
+  $border-color: $zeroday-border,
+
+  $card-bg: $zeroday-panel,
+  $modal-content-bg: $zeroday-panel,
+
+  $input-bg: rgba(0, 0, 0, 0.35),
+  $input-color: $zeroday-white,
+  $input-border-color: $zeroday-border,
+  $input-focus-border-color: $zeroday-green
+);
+
+/* --- Core theme includes (unchanged) --- */
+@use "includes/components/table";
+@use "includes/components/jumbotron";
+@use "includes/components/challenge";
+@use "includes/components/sticky-footer";
+@use "includes/components/graphs";
+
+@use "includes/utils/fonts";
+@use "includes/utils/opacity";
+@use "includes/utils/min-height";
+@use "includes/utils/cursors";
+@use "includes/utils/lolight";
+
+@use "includes/icons/award-icons";
+@use "includes/icons/flag-icons";
+
+/* --- Fonts --- */
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu+Mono:wght@400;700&family=VT323&display=swap");
+
+:root {
+  --font-family-sans-serif: "Ubuntu Mono", monospace;
+  --font-family-monospace: "Ubuntu Mono", monospace;
+}
+
+/* --- Core defaults (from core theme, lightly adjusted) --- */
+h1,
+h2 {
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+a {
+  text-decoration: none !important;
+}
+
+blockquote {
+  border-left: 4px solid $secondary;
+  padding-left: 15px;
+}
+
+input,
+select {
+  padding: 0.6rem !important;
+  height: auto !important;
+}
+
+.fa-spin.spinner {
+  text-align: center;
+  opacity: 0.5;
+}
+
+.badge-notification {
+  vertical-align: top;
+  margin-left: -1.5em;
+  font-size: 50%;
+}
+
+.form-select {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3e%3cpath fill='%23343a40' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e");
+  background-size: 8px 10px;
+}
+
+/* ==========================================================================
+   ZER0-DAY CRT OVERRIDES
+   ========================================================================== */
+
+/* Global font: apply to text content, NOT icon fonts */
+html,
+body {
+  font-family: "Ubuntu Mono", monospace !important;
+  --bs-body-font-family: "Ubuntu Mono", monospace !important;
+}
+
+
+@keyframes zeroday-light-flicker {
+  0% {
+    opacity: 1;
+    filter: none;
+  }
+
+  8% {
+    opacity: 0.85;
+    filter: brightness(1.3) contrast(1.2);
+  }
+
+  12% {
+    opacity: 1;
+    filter: none;
+  }
+
+  28% {
+    opacity: 0.9;
+    filter: brightness(1.15) contrast(1.1);
+  }
+
+  32% {
+    opacity: 1;
+    filter: none;
+  }
+
+  55% {
+    opacity: 0.78;
+    filter: brightness(1.45) contrast(1.25);
+  }
+
+  58% {
+    opacity: 1;
+    filter: none;
+  }
+
+  82% {
+    opacity: 0.88;
+    filter: brightness(1.2) contrast(1.15);
+  }
+
+  86% {
+    opacity: 1;
+    filter: none;
+  }
+
+  100% {
+    opacity: 1;
+    filter: none;
+  }
+}
+
+html {
+  animation: zeroday-light-flicker 1.6s infinite;
+  will-change: opacity, filter;
+}
+
+
+
+/* Apply to common text elements */
+body,
+button,
+input,
+select,
+textarea,
+p,
+span,
+div,
+li,
+a,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+table,
+th,
+td,
+label,
+small {
+  font-family: "Ubuntu Mono", monospace !important;
+  text-shadow: 0 0 4px $zeroday-shadow;
+
+}
+
+/* Keep CRT font only where you want it */
+.navbar-brand,
+h1,
+h2 {
+  font-family: "VT323", monospace !important;
+}
+
+/* EXCLUDE icon fonts (Font Awesome + Bootstrap Icons if used) */
+.fa,
+.fas,
+.far,
+.fal,
+.fab,
+.fa-solid,
+.fa-regular,
+.fa-brands,
+.bi,
+[class^="fa-"],
+[class*=" fa-"] {
+  font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands", "FontAwesome",
+    "bootstrap-icons" !important;
+}
+
+.theme-switch {
+  display: none;
+}
+
+body {
+  background: $zeroday-bg !important;
+  color: $zeroday-white !important;
+}
+
+/* Brand + headers in CRT font */
+.navbar-brand,
+h1,
+h2 {
+  font-family: "VT323", monospace !important;
+}
+
+.navbar-brand {
+  font-size: 2rem;
+  color: $zeroday-green !important;
+}
+
+h1 {
+  font-size: 5rem;
+  line-height: 0.95;
+}
+
+/* Keep neon accents, readable body text */
+h1,
+h2,
+a,
+th {
+  color: $zeroday-green !important;
+}
+
+p,
+span,
+div,
+li,
+label {
+  color: $zeroday-white;
+}
+
+.text-muted,
+.small,
+small {
+  color: $zeroday-muted !important;
+}
+
+/* Navigation */
+nav.navbar,
+.navbar .nav-link,
+.nav-tabs .nav-link {
+  background: $zeroday-bg !important;
+  color: $zeroday-white !important;
+}
+
+.navbar .nav-link:hover,
+.nav-tabs .nav-link:hover {
+  color: $zeroday-green !important;
+}
+
+.nav-link.active,
+.nav-tabs .nav-link.active {
+  // border: 1px solid $zeroday-green !important;
+  background-color: $zeroday-green !important;
+  color: #000 !important;
+  font-weight: 700;
+  border-radius: 0;
+}
+
+/* Panels */
+.bg-dark,
+.card,
+.modal-content {
+  background-color: $zeroday-panel !important;
+  color: $zeroday-white !important;
+  // border: 1px solid $zeroday-border !important;
+}
+
+/* Jumbotron flicker */
+@keyframes zeroday-light-flicker {
+  0%, 100% { opacity: 1; filter: none; }
+  48% { opacity: 0.98; }
+  50% { opacity: 0.94; filter: brightness(1.06) contrast(1.03); }
+  52% { opacity: 0.99; }
+  70% { opacity: 0.975; }
+}
+
+.jumbotron {
+  border-top: 1px solid $zeroday-border !important;
+  border-bottom: 1px solid $zeroday-border !important;
+  background-color: $zeroday-panel !important;
+  margin-top: 20px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+
+/* Tables */
+.table {
+  color: $zeroday-white !important;
+}
+
+.table thead th {
+  color: $zeroday-green !important;
+  border-bottom: 1px solid $zeroday-border !important;
+}
+
+.table td,
+.table th {
+  border-color: rgba(27, 255, 84, 0.18) !important;
+}
+
+/* Alerts */
+.alert {
+  border-radius: 0 !important;
+}
+
+
+.alert-info {
+  background: rgba(27, 255, 84, 0.06) !important;
+  border: 1px solid $zeroday-border !important;
+  color: $zeroday-white !important;
+}
+
+.alert-danger {
+  background: $zeroday-danger-bg !important;
+  border: 1px solid $zeroday-danger-text !important;
+  color: $zeroday-danger-text !important;
+}
+
+/* Buttons */
+.btn {
+  border-radius: 0 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.btn-primary {
+  border: 1px solid $zeroday-green !important;
+  color: $zeroday-green !important;
+  background: transparent !important;
+  font-weight: 700;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background: $zeroday-green !important;
+  color: #000 !important;
+  box-shadow: 0 0 0 0.2rem rgba(27, 255, 84, 0.18) !important;
+}
+
+.btn-secondary,
+.btn-outline-secondary {
+  border: 1px solid $zeroday-border !important;
+  background: transparent !important;
+  color: $zeroday-white !important;
+}
+
+.btn-outline-secondary:hover {
+  border-color: $zeroday-green !important;
+  color: $zeroday-green !important;
+}
+
+/* Inputs */
+.form-control,
+.form-select,
+textarea {
+  border-radius: 0 !important;
+  background: rgba(0, 0, 0, 0.35) !important;
+  border: 1px solid $zeroday-border !important;
+  color: $zeroday-white !important;
+}
+
+.form-control:focus,
+.form-select:focus,
+textarea:focus {
+  border-color: $zeroday-green !important;
+  box-shadow: 0 0 0 0.2rem rgba(27, 255, 84, 0.2) !important;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: rgba(233, 255, 238, 0.45) !important;
+}
+
+/* Links */
+a:hover {
+  color: lighten($zeroday-green, 6%) !important;
+}
+
+/* CRT scanlines overlay (safe z-index for modals) */
+body::after {
+  content: " ";
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(rgba(24, 21, 21, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
+    linear-gradient(
+      90deg,
+      rgba(255, 0, 0, 0.06),
+      rgba(0, 255, 0, 0.02),
+      rgba(0, 0, 255, 0.06)
+    );
+  z-index: 9999;
+  background-size:
+    100% 2px,
+    3px 100%;
+  pointer-events: none;
+}
+
+/* Optional: add class "crt-glow" on body in template */
+.crt-glow h1,
+.crt-glow h2,
+.crt-glow a,
+.crt-glow .navbar-brand {
+  text-shadow: 0 0 8px $zeroday-shadow;
+}
+
+/* Optional: add class "crt-flicker" on body in template */
+@keyframes crt-flicker {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.985;
+  }
+}
+
+.crt-flicker {
+  animation: crt-flicker 4.5s infinite;
+}
