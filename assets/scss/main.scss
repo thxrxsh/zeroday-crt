@@ -384,6 +384,13 @@ nav.navbar,
   color: $zeroday-green !important;
 }
 
+
+.badge.bg-primary {
+  background-color: $zeroday-green !important;
+  color: #000 !important;
+  font-weight: 700;
+}
+
 /* Inputs */
 .form-control,
 .form-select,
@@ -400,6 +407,53 @@ textarea:focus {
   border-color: $zeroday-green !important;
   box-shadow: 0 0 0 0.2rem rgba(27, 255, 84, 0.2) !important;
 }
+
+
+
+/* CRT Select Dropdown */
+.form-select {
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.45) !important;
+  // color: $zeroday-green !important;
+
+  border: 1px solid $zeroday-border !important;
+  border-radius: 0 !important;
+
+  padding: 0.6rem 2.2rem 0.6rem 0.8rem !important;
+
+  font-family: "Ubuntu Mono", monospace !important;
+  // text-transform: uppercase;
+  // letter-spacing: 0.08em;
+
+  /* Custom CRT arrow */
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'%3e%3cpath fill='%231bff54' d='M0 0l5 6 5-6z'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 10px 6px;
+
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+/* Hover state */
+.form-select:hover {
+  border-color: $zeroday-green !important;
+}
+
+/* Focus state */
+.form-select:focus {
+  border-color: $zeroday-green !important;
+  box-shadow: 0 0 0 0.15rem rgba(27, 255, 84, 0.25) !important;
+  background-color: rgba(0, 0, 0, 0.55) !important;
+}
+
+/* Dropdown options (browser-limited but helps) */
+.form-select option {
+  background-color: $zeroday-bg;
+  color: $zeroday-green;
+}
+
 
 input::placeholder,
 textarea::placeholder {
